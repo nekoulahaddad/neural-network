@@ -8,8 +8,11 @@ p = zeros(m, 1);
 figure;
 
 %% hyperplane
-hgscatter = gscatter(X(:,2),X(:,3),y);
+hgscatter = gscatter(X(:,2),X(:,3),y,'kr','xo');
 hold on;
+xlabel('latency')
+ylabel('amplitude')
+legend('not a target', 'target')
 % decision plane
 XLIMs = linspace(0, 1, 300);
 YLIMs = linspace(0, 1, 300);
@@ -29,10 +32,13 @@ p(neg) = 0;
 pred_mesh = p;
 redcolor = [1, 0.8, 0.8];
 bluecolor = [0.8, 0.8, 1];
+yellowcolor = [0.9, 1, 0.6];
+greycolor = [0.9, 0.9, 0.9];
+whitecolor = [1, 1, 1];
 pos = find(pred_mesh == 1);
-h1 = plot(dd(pos,2), dd(pos,3),'s','color',redcolor,'Markersize',5,'MarkerEdgeColor',redcolor,'MarkerFaceColor',redcolor);
+h1 = plot(dd(pos,2), dd(pos,3),'s','color',whitecolor,'Markersize',5,'MarkerEdgeColor',whitecolor,'MarkerFaceColor',whitecolor);
 pos = find(pred_mesh == 0);
-h2 = plot(dd(pos,2), dd(pos,3),'s','color',bluecolor,'Markersize',5,'MarkerEdgeColor',bluecolor,'MarkerFaceColor',bluecolor);
+h2 = plot(dd(pos,2), dd(pos,3),'s','color',yellowcolor,'Markersize',5,'MarkerEdgeColor',yellowcolor,'MarkerFaceColor',yellowcolor);
 uistack(h1,'bottom');
 uistack(h2,'bottom');
 hold off;

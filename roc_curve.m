@@ -1,18 +1,14 @@
 function [TP,FP,FN,TN,OPTI,OPTI2] = roc_curve(class_1, class_2)
 
-% first of all --> when dealing with precision i need to add the line 15
-% --> and i can use it of delete it with Specificity
+% first of all --> when dealing with precision i need to add the line 11
 
-
-
-%C = unique(A) returns the same data as in A, but with no repetitions. C is in sorted order
 s_data = unique(sort([class_1; class_2]));   % sorts the elements of A in ascending order. with deleting repetitions
 d_data = diff(s_data);                      % Difference between consecutive points / al fare2 been two elements wara b3d
 d_data(length(d_data)+1,1) = d_data(length(d_data)); % Last point  // i added an element in the end of the array to make the length of d_data equal the length of s_data // this element is equal to the last element in the array d_data
 thres(1,1) = s_data(1) - d_data(1); % First point
 thres(2:length(s_data)+1,1) = s_data + d_data./2;   % Threshold values
 
-%thres = thres(1:162,1);  % it used when dealing with precision preventing an error // cuz the last element giving NAN 
+%thres = thres(1:162,1);  % it used when dealing with precision for preventing an error // cuz the last element giving NAN 
 % Calculating the sensibility(true positive rate) and specificity of each threshold 
 % false positive rate = (1-specificity)
 
@@ -39,8 +35,8 @@ thres(2:length(s_data)+1,1) = s_data + d_data./2;   % Threshold values
     FN = length(find(class_2 < thres(opt)));     % No. false negatives                                 
     TN = length(find(class_1 < thres(opt)));     % No. true negatives       
     
-    OPTI = thres(opt,1)
-    OPTI2 = thres(opt)
+    OPTI = thres(opt,1);
+    OPTI2 = thres(opt);
     % Output parameters
     param.Sensi = curve(opt,1);                 % Sensitivity
     param.Speci = curve(opt,2);                 % Specificity
